@@ -28,7 +28,7 @@ class ProfileTabs extends React.PureComponent {
 				{
 					this.props.items.map((comp, ind) => {
 						const Comp = comp.comp;
-						return activeIndex == ind && <Comp key={ind}/>;
+						return activeIndex == ind && <Comp auth={this.props.auth} key={ind}/>;
 					})
 				}
 

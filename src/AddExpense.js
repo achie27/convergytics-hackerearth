@@ -36,7 +36,33 @@ class AddExpense extends React.Component {
 	};
 
 	sendData = () => {
+		if(this.state.type == 1){
+			axios.post('/api/expense/bulk', {
+				data : this.state.csvContents
+			})
+			.then(res => alert('Successfully inserted'))
+			.catch(err => alert('Unsuccesful'));
+		} else {
+			let data = {
+				employees : [],
+				expense : this.state.expense,
+				share : 1/(this.state.num + 1),
+				type : this.state.expensetype
+			};
 
+			console.log(data);
+
+			data.employees.push(this.state.emp)
+			for(let emp of this.state.extraemp){
+				data.employees.push(emp);
+			}
+
+			axios.post('/api/expense/', {
+				data : data
+			})
+			.then(res => alert('Successfully inserted'))
+			.catch(err => alert('Unsuccesful'));
+		}
 	};
 
 	addContributor = () => {
@@ -54,12 +80,10 @@ class AddExpense extends React.Component {
 	        let csvContent = [];
 	        const content = fileReader.result;
 	        for(let line of content.split('\n')){
-	        	csvContent.push(line.split(','));
+	        	csvContent.push(line.split(',').slice(0, 3));
 	        }
-
 	        csvContent.pop('');
 	        this.setState({csvContents : csvContent});
-	        console.log(csvContent);        	
         };
 
         let fileReader = new FileReader();
@@ -97,6 +121,8 @@ class AddExpense extends React.Component {
 				extra.push(
 					<TextField
 						label="Name"
+						variant="filled"
+						className='add-expense-extra-emp'
 						value={this.state.extraemp[i]}
 						onChange={this.handleCe(i)}
 					/>
@@ -104,31 +130,41 @@ class AddExpense extends React.Component {
 			}
 
 		return (
-			<div>
-				<Button variant="contained" color="primary" onClick={this.handleCSV}>
-					Upload CSV
-				</Button>
-				<Button variant="contained" color="primary" onClick={this.handleManual}>
-					Manual Entry
-				</Button>
+			<div className='add-expense'>
+				<div className='add-expense-buttons'>
+					<Button variant="contained" color="primary" onClick={this.handleManual}>
+						Manual Entry
+					</Button>
+					<Button variant="contained" color="primary" onClick={this.handleCSV}>
+						CSV Entry
+					</Button>
+					<Button variant="contained" color="secondary" onClick={this.sendData}>
+						Submit
+					</Button>
+				</div>
 				{this.state.type === 0 && (
-					<div>
+					<div className='add-expense-fields'>
 						<TextField
 							id="employee"
 							label="Name"
+							variant="filled"
+							className='add-expense-text'
 							value={this.state.emp}
 							onChange={this.handleChange('emp')}
 						/>
-						{extra}
 						<TextField
 							id="expense"
 							label="Expense"
+							variant="filled"
+							className='add-expense-text'
 							value={this.state.expense}
 							onChange={this.handleChange('expense')}
 						/>
 						<TextField
 							id="expense-types"
 							select
+							variant="filled"
+							className='add-expense-text'
 							label="Expense type"
 							className='add-expense-expense-types'
 							value={this.state.expensetype}
@@ -136,7 +172,6 @@ class AddExpense extends React.Component {
 							SelectProps={{
 								native: true,
 							}}
-							margin="normal"
 							variant="filled"
 						>
 							{types.map((opt, ind) => (
@@ -145,17 +180,17 @@ class AddExpense extends React.Component {
 								</option>
 							))}
 						</TextField>
-						<Button variant="contained" color="primary" onClick={this.sendData}>
-							Submit
-						</Button>
-						<Fab color="primary" aria-label="Add" onClick={this.addContributor}>
+						<Fab variant='extended' color="primary" aria-label="Add" onClick={this.addContributor}>
 							<AddIcon />
+							Employee
 						</Fab>
+						{extra}
+						
 					</div>
 				)}
 
 				{this.state.type === 1 && ( 
-					<div> 
+					<div className='csv-stuff'> 
 						<div className='upload-expense'>
 					        <input 
 								type='file'
@@ -165,7 +200,7 @@ class AddExpense extends React.Component {
 					        />
 					        <label htmlFor="add-expense-csv-file">
 							  <Button variant="raised" component="span">
-							    Upload
+							    Upload CSV
 							  </Button>
 							</label> 
 					    </div>
@@ -177,13 +212,16 @@ class AddExpense extends React.Component {
 											disabled
 											label="Name"
 											value={record[0]}
+											margin='normal'
 										/>
 										<TextField
+											margin='normal'
 											disabled
 											label="Expense"
 											value={record[1]}
 										/>
 										<TextField
+											margin='normal'
 											disabled
 											label="Type"
 											value={record[2]}

@@ -1,0 +1,36 @@
+.content {
+	display: flex;
+	justify-content: center;
+	margin: 25px;
+}
+
+.add-expense-buttons {
+	margin: 25px;
+}
+
+.add-expense-fields,  .expenses-list, .csv-stuff {
+	margin: 25px;
+	width: 750px;
+}
+.add-expense-text {
+	margin:25px;
+	float: left;
+}
+
+.add-expense {
+	width: 100%;
+}
+
+.add-expense-extra-emp {
+	float: left;
+	clear: left;
+}
+
+.upload-expense {
+	display: flex;
+	justify-content: center;
+}
+
+input[type=file] {
+    display : none;
+}

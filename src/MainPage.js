@@ -12,25 +12,28 @@ class MainPage extends React.Component {
 	constructor(){
 		super();
 		this.state = {
-
+			auth : 0
 		};
+
+		this.authHandler = this.authHandler.bind(this);
 	}
 
-	componentDidMount(){
-	}
+	authHandler = (authVal) => {
+		this.setState({auth : authVal});
+	};
 
 	render(){
 		return(
 			<div>
 				<Header />
 				<div className='content'>
-					<Menu items={[
+					<Menu auth={this.state.auth} items={[
 						{comp : AddExpense, name : 'Add expense'}, 
 						{comp : SubmittedExpenses, name : 'Submitted expenses'}, 
 						{comp : Reimbursements, name : 'Reimbursements'}
 					]}/>
 				</div>
-				<Footer />
+				<Footer authHandler={this.authHandler}/>
 			</div>
 		);
 	}
