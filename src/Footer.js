@@ -59,11 +59,11 @@ class Footer extends React.Component {
 					<BottomNavigationAction onClick={this.handleClickOpen} label="Login as Admin" />
 				</BottomNavigation>
 				<Dialog
-		          open={this.state.open}
-		          onClose={this.handleClose}
-		          aria-labelledby="form-dialog-title"
-		        >
-		        	<DialogTitle>Login</DialogTitle>
+					open={this.state.open}
+					onClose={this.handleClose}
+					aria-labelledby="form-dialog-title"
+				>
+					<DialogTitle>Login</DialogTitle>
 					<DialogContent>
 						<DialogContentText>
 							Enter the Passkey for Admins.
@@ -87,7 +87,7 @@ class Footer extends React.Component {
 							Submit
 						</Button>
 					</DialogActions>
-		        </Dialog>
+				</Dialog>
 			</div>
 		);
 	}

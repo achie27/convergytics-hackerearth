@@ -38,27 +38,27 @@ class ProfileTabs extends React.PureComponent {
 }
 
 const VerticalTabs = withStyles(theme => ({
-  flexContainer: {
-    flexDirection: 'column'
-  },
-  indicator: {
-    display: 'none',
-  }
+	flexContainer: {
+		flexDirection: 'column'
+	},
+	indicator: {
+		display: 'none',
+	}
 }))(Tabs)
 
 const MyTab = withStyles(theme => ({
-  selected: {
-    color: 'tomato',
-    borderBottom: '2px solid tomato'
-  }
+	selected: {
+		color: 'tomato',
+		borderBottom: '2px solid tomato'
+	}
 }))(Tab);
 
 function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
+	return (
+		<Typography component="div" style={{ padding: 8 * 3 }}>
+			{props.children}
+		</Typography>
+	);
 }
 
 export default ProfileTabs;

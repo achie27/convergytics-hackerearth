@@ -33,7 +33,7 @@ class MainPage extends React.Component {
 						{comp : Reimbursements, name : 'Reimbursements'}
 					]}/>
 				</div>
-				<Footer authHandler={this.authHandler}/>
+				<Footer auth={this.state.auth} authHandler={this.authHandler}/>
 			</div>
 		);
 	}

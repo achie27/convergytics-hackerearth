@@ -74,34 +74,33 @@ class AddExpense extends React.Component {
 		});
 	};
 
-    handleFileChosen = (file) => {
-        
-        const handleFileRead = () => {
-	        let csvContent = [];
-	        const content = fileReader.result;
-	        for(let line of content.split('\n')){
-	        	csvContent.push(line.split(',').slice(0, 3));
-	        }
-	        csvContent.pop('');
-	        this.setState({csvContents : csvContent});
-        };
+	handleFileChosen = (file) => {
+		const handleFileRead = () => {
+			let csvContent = [];
+			const content = fileReader.result;
+			for(let line of content.split('\n')){
+				csvContent.push(line.split(',').slice(0, 3));
+			}
+			csvContent.pop('');
+			this.setState({csvContents : csvContent});
+		};
 
-        let fileReader = new FileReader();
-        fileReader.onloadend = handleFileRead;
-        fileReader.readAsText(file);
-    };
+		let fileReader = new FileReader();
+		fileReader.onloadend = handleFileRead;
+		fileReader.readAsText(file);
+	};
 
-    handleCSV = () => {
-    	this.setState({
-    		type : 1,
-    		emp : '',
+	handleCSV = () => {
+		this.setState({
+			type : 1,
+			emp : '',
 			expense : 0,
 			extraemp : [],
 			expensetype : 'food',
 			num : 0,
 			csvContents : []
-    	});
-    };
+		});
+	};
 
 	handleManual = () => {
     	this.setState({
@@ -116,18 +115,18 @@ class AddExpense extends React.Component {
     };
 
 	render(){
-			let extra = [];
-			for (var i = 0; i < this.state.num; i++) {
-				extra.push(
-					<TextField
-						label="Name"
-						variant="filled"
-						className='add-expense-extra-emp'
-						value={this.state.extraemp[i]}
-						onChange={this.handleCe(i)}
-					/>
-				);
-			}
+		let extra = [];
+		for (var i = 0; i < this.state.num; i++) {
+			extra.push(
+				<TextField
+					label="Name"
+					variant="filled"
+					className='add-expense-extra-emp'
+					value={this.state.extraemp[i]}
+					onChange={this.handleCe(i)}
+				/>
+			);
+		}
 
 		return (
 			<div className='add-expense'>

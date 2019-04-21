@@ -5,7 +5,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 
 class Reimbursements extends React.Component {
 	state = {
@@ -35,8 +34,7 @@ class Reimbursements extends React.Component {
 	render(){
 		return (
 			<List className='expenses-list' component='nav'>
-      			<Divider />
-
+				<Divider />
 				{
 					this.state.expenses.map(exp => {
 						return <div>
@@ -45,9 +43,6 @@ class Reimbursements extends React.Component {
 								<TextField label='Amount' defaultValue={exp.amount} margin="normal" InputProps={{readOnly: true}} variant="filled"/>
 								<TextField label='Type' defaultValue={exp.type} margin="normal" InputProps={{readOnly: true}} variant="filled"/>
 								<TextField label='Status' defaultValue={exp.status} margin="normal" InputProps={{readOnly: true}} variant="filled"/>
-								{this.props.auth == 1 && <Button id={exp.id} onClick={(e) => this.handleStatus(e)} color="primary">
-									Reimburse
-								</Button>}
 							</ListItem>
 					      	<Divider />
 					    </div>
